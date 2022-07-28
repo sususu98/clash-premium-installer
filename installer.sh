@@ -111,7 +111,7 @@ function _install() {
     echo ""
     echo "Home directory at /srv/clash"
     echo ""
-    echo "All dns traffic will be redirected to 1.0.0.1:53"
+    echo "All dns traffic will be redirected to 198.18.0.2:53"
     echo "Please use clash core's 'tun.dns-hijack' to handle it"
     echo ""
     echo "Use 'systemctl start clash' to start"
