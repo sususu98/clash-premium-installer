@@ -15,17 +15,17 @@ table clash
 flush table clash
 
 table clash {
-    chain local {
-        type route hook output priority 0; policy accept;
+    # chain local {
+    #     type route hook output priority 0; policy accept;
         
-        ip protocol != { tcp, udp } accept
+    #     ip protocol != { tcp, udp } accept
         
-        meta cgroup $BYPASS_CGROUP_CLASSID accept
-        ip daddr \$LOCAL_SUBNET accept
+    #     meta cgroup $BYPASS_CGROUP_CLASSID accept
+    #     ip daddr \$LOCAL_SUBNET accept
         
-        ct state new ct mark set $NETFILTER_MARK
-        ct mark $NETFILTER_MARK mark set $NETFILTER_MARK
-    }
+    #     ct state new ct mark set $NETFILTER_MARK
+    #     ct mark $NETFILTER_MARK mark set $NETFILTER_MARK
+    # }
     
     chain forward {
         type filter hook prerouting priority 0; policy accept;
@@ -38,17 +38,17 @@ table clash {
         mark set $NETFILTER_MARK
     }
     
-    chain local-dns-redirect {
-        type nat hook output priority 0; policy accept;
+    # chain local-dns-redirect {
+    #     type nat hook output priority 0; policy accept;
         
-        ip protocol != { tcp, udp } accept
+    #     ip protocol != { tcp, udp } accept
         
-        meta cgroup $BYPASS_CGROUP_CLASSID accept
-        ip daddr 127.0.0.0/8 accept
+    #     meta cgroup $BYPASS_CGROUP_CLASSID accept
+    #     ip daddr 127.0.0.0/8 accept
         
-        udp dport 53 dnat $FORWARD_DNS_REDIRECT
-        tcp dport 53 dnat $FORWARD_DNS_REDIRECT
-    }
+    #     udp dport 53 dnat $FORWARD_DNS_REDIRECT
+    #     tcp dport 53 dnat $FORWARD_DNS_REDIRECT
+    # }
     
     chain forward-dns-redirect {
         type nat hook prerouting priority 0; policy accept;
